@@ -11,7 +11,7 @@ CREATE TABLE TMCCM_Usuario(
 	TC_Correo Varchar(100),
 	TC_Contrasennia varchar(20),
 	TB_En_Grupo bit default 0,
-	TB_Eliminado bit default 1,
+	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TMCCM_Usuario PRIMARY KEY(TN_ID_Usuario)
 )
 
@@ -20,7 +20,7 @@ CREATE TABLE TMCCM_Rol(
 	TC_Nombre varchar(30),
 	TC_Descripcion varchar(30),
 	TF_Fecha_Creacion date,
-	TB_Eliminado bit default 1,
+	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TMCCM_Rol Primary key(TN_ID_Rol)
 )
 
@@ -39,17 +39,14 @@ CREATE TABLE TMCCM_Caso(
 	TC_Enfoque_Trabajo varchar(100),
 	TC_Area_Trabajo varchar(100),
 	TN_Nivel int,
+	TF_Fecha DateTime,
+	TC_Delito varchar(100),
 	TC_Descripcion varchar(200),
 	TC_Fuente varchar(200),
-	TB_Eliminado bit default 1,
+	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TMCCM_Caso PRIMARY KEY(TN_ID_Caso)
 )
 
-ALTER TABLE TMCCM_Caso
-ADD TC_Delito varchar(100);
-
-ALTER TABLE TMCCM_Caso
-ADD TF_Fecha Date;
 
 CREATE TABLE TMCCM_Grupo(
 	TN_ID_Grupo INT IDENTITY,
@@ -100,12 +97,11 @@ CREATE TABLE TMCCM_Grupo_Vehiculo(
 CREATE TABLE TMCCM_Evento(
 	TN_ID_Evento int identity,
 	TN_ID_Caso int,
-	TF_Fecha date,
-	TF_Hora time,
+	TF_Fecha datetime,
 	TC_Informa varchar(50),
 	TC_Lugar varchar(50),
 	TC_Novedad varchar(200),
-	TB_Eliminado bit default 1,
+	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TCCM_Evento PRImARY KEY(TN_ID_Evento),
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Evento Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
 )
@@ -114,11 +110,10 @@ CREATE TABLE TMCCM_Tarea(
 	TN_ID_Tarea int identity,
 	TN_ID_Caso int,
 	TN_ID_Usuario int,
-	TF_Fecha date,
-	TF_Hora time,
+	TF_Fecha datetime,
 	TC_Diligencia varchar(100),
 	TC_Lugar varchar(50),
-	TB_Eliminado bit default 1,
+	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TCCM_Tarea PRImARY KEY(TN_ID_Tarea),
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Tarea Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
 	CONSTRAINT FK_TMCCM_Usuario_REL_TMCCM_Tarea Foreign Key(TN_ID_Usuario) references TMCCM_Usuario(TN_ID_Usuario)
@@ -200,13 +195,6 @@ CREATE TABLE TMCCM_C_Arma_Tipo_Arma(
 	CONSTRAINT PK_TCCM_C_Arma_Tipo_Arma PRImARY KEY(TN_ID_Tipo_Arma)
 )
 
-CREATE TABLE TMCCM_C_Arma_Icono_Arma(
-	TN_ID_Icono_Arma int identity,
-	TC_Descripcion varchar(100),
-	TB_Imagen varbinary(MAX),
-	TB_Eliminado bit default 1,
-	CONSTRAINT PK_TCCM_C_Arma_Icono_Arma PRImARY KEY(TN_ID_Icono_Arma)
-)
 
 CREATE TABLE TMCCM_Entidad_Arma(
 	TN_ID_Arma int identity,
@@ -316,39 +304,25 @@ CREATE TABLE TMCCM_C_Telefono_Empresa_Telefonica(
 	CONSTRAINT PK_TMCCM_C_Telefono_Empresa_Telefonica PRImARY KEY(TN_ID_Proveedor)
 )
 
-CREATE TABLE TMCCM_C_Telefono_Icono_Telefono(
-	TN_ID_Icono_Telefono int identity,
-	TC_Descripcion varchar(100),
-	TB_Imagen varbinary(MAX),
-	TB_Eliminado bit default 1,
-	CONSTRAINT PK_TMCCM_C_Telefono_Icono_Telefono PRImARY KEY(TN_ID_Icono_Telefono)
-)
 
 CREATE TABLE TMCCM_Entidad_Telefono(
 	TN_ID_Telefono int identity,
 	TN_ID_Caso int,
 	TN_ID_Proveedor int,
-	TN_ID_Icono_Telefono int,
 	TC_Comentario varchar(100),
 	TN_Numero int,
 	TF_Fecha_Creacion date,
 	TF_Fecha_Modificacion date,
 	TC_Creado_Por varchar(50),
 	TC_Modificado_Por varchar(50),
-	TB_Eliminado bit default 1,
+	TB_Verificado bit default 0,
+	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TCCM_Entidad_Telefono PRImARY KEY(TN_ID_Telefono),
-	
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Entidad_Telefono Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
-	
-	CONSTRAINT FK_TMCCM_C_Telefono_Icono_Telefono_REL_TMCCM_Entidad_Telefono 
-	Foreign Key(TN_ID_Icono_Telefono) references TMCCM_C_Telefono_Icono_Telefono(TN_ID_Icono_Telefono),
-	
 	CONSTRAINT FK_TMCCM_C_Telefono_Empresa_Telefonica_REL_TMCCM_Entidad_Telefono 
 	Foreign Key(TN_ID_Proveedor) references TMCCM_C_Telefono_Empresa_Telefonica(TN_ID_Proveedor)
 )
 
-ALTER TABLE TMCCM_Entidad_Telefono
-ADD TB_Verificado bit default 0;
 
 CREATE TABLE TMCCM_C_Vehiculo_Marca(
 	TN_ID_Marca_Vehiculo int identity,
@@ -358,14 +332,6 @@ CREATE TABLE TMCCM_C_Vehiculo_Marca(
 	CONSTRAINT PK_TMCCM_C_Vehiculo_Marca PRImARY KEY(TN_ID_Marca_Vehiculo)
 )
 
-CREATE TABLE TMCCM_C_Vehiculo_Icono(
-	TN_ID_Icono_Vehiculo int identity,
-	TC_Descripcion varchar(100),
-	TF_Fecha_Creacion date,
-	TB_Imagen varbinary(MAX),
-	TB_Eliminado bit default 1,
-	CONSTRAINT PK_TMCCM_C_Vehiculo_Icono PRImARY KEY(TN_ID_Icono_Vehiculo)
-)
 
 CREATE TABLE TMCCM_C_Vehiculo_Color(
 	TN_ID_Color_Vehiculo int identity,
@@ -427,13 +393,6 @@ CREATE TABLE TMCCM_C_Persona_Tipo_Identificacion(
 	CONSTRAINT PK_TMCCM_C_Persona_Tipo_Identificacion PRImARY KEY(TN_ID_Tipo_Identificacion)
 )
 
-
-CREATE TABLE TMCCM_C_Persona_Icono_Persona(
-	TN_ID_Icono_Persona int identity,
-	TC_Descripcion varchar(100),
-	TB_Imagen varbinary(MAX),
-	CONSTRAINT PK_TMCCM_C_Persona_Icono_Persona PRImARY KEY(TN_ID_Icono_Persona)
-)
 
 CREATE TABLE TMCCM_C_Persona_Sexo(
 	TN_ID_Sexo int identity,
@@ -537,12 +496,6 @@ CREATE TABLE TMCCM_Entidad_Persona_Juridica(
 
 )
 
-CREATE TABLE TMCCM_C_Persona_Juridica_Icono_Persona_Juridica(
-	TN_ID_Icono_Persona_Juridica int identity,
-	TC_Descripcion varchar(100),
-	TB_Imagen varbinary(MAX),
-	CONSTRAINT PK_TMCCM_C_Persona_Icono_Persona_Juridica PRImARY KEY(TN_ID_Icono_Persona_Juridica)
-)
 
 CREATE TABLE TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn(
 	TN_ID_Tipo_Organizacion int identity,
@@ -551,9 +504,6 @@ CREATE TABLE TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn(
 	CONSTRAINT PK_TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn PRImARY KEY(TN_ID_Tipo_Organizacion)
 )
 
-CREATE PROCEDURE [dbo].[sp_obtenerEventosPorCaso](@casoID int)
-as
-select TN_ID_Evento,TF_Fecha,TC_Informa,TC_Lugar,TC_Novedad from TMCCM_Evento where TB_Eliminado=0 and TN_ID_Caso=@casoID;
 
 ALTER TABLE dbo.TMCCM_Entidad_Droga
 ALTER COLUMN TF_Fecha_Creacion datetime;
@@ -561,17 +511,6 @@ ALTER COLUMN TF_Fecha_Creacion datetime;
 ALTER TABLE dbo.TMCCM_Entidad_Droga
 ALTER COLUMN TF_Fecha_Modificacion datetime;
 Alter Table dbo.TMCCM_Entidad_Persona_Juridica add constraint PK_TCCM_C_Entidad_Persona_Juridica Primary key(TN_Id_Persona_Juridica)
-
-
-ALTER TABLE dbo.TMCCM_Evento ALTER COLUMN TF_Fecha DATETIME
-ALTER TABLE dbo.TMCCM_Evento DROP COLUMN TF_Hora
-
-create procedure sp_Obtener_Catalogo_Usuario
-as
-select TN_ID_Usuario,TC_Identificacion,CONCAT(TC_Nombre,' ',TC_Primer_Apellido,' ',TC_Segundo_Apellido) as TC_Nombre_Completo from TMCCM_Usuario
-
-ALTER TABLE dbo.TMCCM_Tarea ALTER COLUMN TF_Fecha DATETIME
-ALTER TABLE dbo.TMCCM_Tarea DROP COLUMN TF_Hora
 
 
 
