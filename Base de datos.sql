@@ -1,5 +1,6 @@
 --CREATE DATABASE MCCM
-use MCCM
+USE MCCM
+GO
 
 CREATE TABLE TMCCM_Usuario(
 	TN_ID_Usuario int identity(1,1),
@@ -51,48 +52,49 @@ ALTER TABLE TMCCM_Caso
 ADD TF_Fecha Date;
 
 CREATE TABLE TMCCM_Grupo(
-	TN_ID_Grupo int identity,
-	TN_ID_Caso int,
-	TF_Hora time,
-	TC_Zona varchar(50),
-	TF_Fecha_Inicio Date,
-	TF_Fecha_Final Date,
-	TB_Mando bit default 0,
-	TB_Eliminado bit default 1,
-	CONSTRAINT PK_TCCM_Grupo PRImARY KEY(TN_ID_Grupo),
-	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Grupo Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
+	TN_ID_Grupo INT IDENTITY,
+	TN_ID_Caso INT,
+	TF_Hora TIME,
+	TC_Zona VARCHAR(50),
+	TF_Fecha_Inicio DATE,
+	TF_Fecha_Final DATE,
+	TB_Mando bit DEFAULT 0,
+	TB_Eliminado BIT DEFAULT 0,
+	CONSTRAINT PK_TCCM_Grupo PRIMARY KEY(TN_ID_Grupo),
+	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Grupo FOREIGN KEY(TN_ID_Caso) REFERENCES TMCCM_Caso(TN_ID_Caso),
 )
 
 CREATE TABLE TMCCM_Grupo_Usuario(
-	TN_ID_Usuario int,
-	TN_ID_Grupo int,
-	TB_Eliminado bit default 1,
-	TB_Encargado bit,
-	CONSTRAINT FK_TMCCM_Grupo_REL_TMCCM_Grupo_Usuario Foreign Key(TN_ID_Grupo) references TMCCM_Grupo(TN_ID_Grupo),
-	CONSTRAINT FK_TMCCM_Usuario_REL_TMCCM_Grupo_Usuario Foreign Key(TN_ID_Usuario) references TMCCM_Usuario(TN_ID_Usuario),
+	TN_ID_Usuario INT,
+	TN_ID_Grupo INT,
+	TB_Eliminado BIT DEFAULT 0,
+	TB_Encargado BIT,
+	CONSTRAINT FK_TMCCM_Grupo_REL_TMCCM_Grupo_Usuario FOREIGN KEY(TN_ID_Grupo) REFERENCES TMCCM_Grupo(TN_ID_Grupo),
+	CONSTRAINT FK_TMCCM_Usuario_REL_TMCCM_Grupo_Usuario FOREIGN KEY(TN_ID_Usuario) REFERENCES TMCCM_Usuario(TN_ID_Usuario),
 	CONSTRAINT PK_TMCCM_Grupo_Usuario PRIMARY KEY(TN_ID_Usuario,TN_ID_Grupo)
 )
 
 CREATE TABLE TMCCM_Vehiculo(
-	TN_ID_Vehiculo int identity,
-	TC_Placa varchar(20),
-	TC_Marca varchar(50),
-	TC_Clase varchar(50),
-	TB_Fotografia varbinary(MAX),
-	TC_Clasificacion varchar(50),
-	TC_Estilo varchar(50),
-	TN_Anno int,
-	TB_Eliminado bit default 1,
-	CONSTRAINT PK_TCCM_Vehiculo PRImARY KEY(TN_ID_Vehiculo)
+	TN_ID_Vehiculo INT IDENTITY,
+	TC_Placa VARCHAR(20),
+	TN_Kilometraje INT,
+	TC_Descripcion varchar(100),
+	TB_En_Uso BIT DEFAULT 0,
+	TB_Eliminado BIT DEFAULT 0,
+	CONSTRAINT PK_TCCM_Vehiculo PRIMARY KEY(TN_ID_Vehiculo)
 )
 
 CREATE TABLE TMCCM_Grupo_Vehiculo(
-	TN_ID_Vehiculo int,
-	TN_ID_Grupo int,
-	TB_Eliminado bit default 1,
-	CONSTRAINT FK_TMCCM_Grupo_REL_TMCCM_Grupo_Vehiculo Foreign Key(TN_ID_Grupo) references TMCCM_Grupo(TN_ID_Grupo),
-	CONSTRAINT FK_TMCCM_Vehiculo_REL_TMCCM_Grupo_Vehiculo Foreign Key(TN_ID_Vehiculo) references TMCCM_Vehiculo(TN_ID_Vehiculo),
-	CONSTRAINT PK_TMCCM_Grupo_Vehiculo PRIMARY KEY(TN_ID_Vehiculo,TN_ID_Grupo)
+	TN_ID_Grupo_Vehiculo INT IDENTITY,
+	TN_ID_Vehiculo INT,
+	TN_ID_Grupo INT,
+	TN_Km_Inicio INT,
+	TN_Km_Regreso INT,
+	TF_Fecha_Hora DATETIME,
+	TB_Eliminado BIT DEFAULT 0,
+	CONSTRAINT FK_TMCCM_Grupo_REL_TMCCM_Grupo_Vehiculo FOREIGN KEY(TN_ID_Grupo) REFERENCES TMCCM_Grupo(TN_ID_Grupo),
+	CONSTRAINT FK_TMCCM_Vehiculo_REL_TMCCM_Grupo_Vehiculo FOREIGN KEY(TN_ID_Vehiculo) REFERENCES TMCCM_Vehiculo(TN_ID_Vehiculo),
+	CONSTRAINT PK_TMCCM_Grupo_Vehiculo PRIMARY KEY(TN_ID_Grupo_Vehiculo)
 )
 
 CREATE TABLE TMCCM_Evento(
@@ -162,25 +164,25 @@ ALTER TABLE TMCCM_Entidad_Droga
 ADD TB_Verificado bit default 0;
 
 CREATE TABLE TMCCM_C_Gasto_Tipo_Gasto(
-	TN_ID_Tipo_Gasto int identity,
-	TC_Nombre varchar(50),
-	TC_Descripcion varchar(100),
-	TB_Eliminado bit default 1,
-	CONSTRAINT PK_TCCM_C_Gasto_Tipo_Gasto PRImARY KEY(TN_ID_Tipo_Gasto)
+	TN_ID_Tipo_Gasto INT IDENTITY,
+	TC_Nombre VARCHAR(50),
+	TC_Descripcion VARCHAR(100),
+	TB_Eliminado BIT DEFAULT 0,
+	CONSTRAINT PK_TCCM_C_Gasto_Tipo_Gasto PRIMARY KEY(TN_ID_Tipo_Gasto)
 )
 
 CREATE TABLE TMCCM_Gasto(
-	TN_ID_Gasto int identity,
-	TN_ID_Caso int,
-	TN_ID_Tipo_Gasto int,
-	TF_Fecha date,
-	TN_Num_Factura int,
-	TD_Monto float(2),
-	TC_Compra varchar(100),
-	TB_Eliminado bit default 1,
-	CONSTRAINT PK_TCCM_Gasto PRImARY KEY(TN_ID_Gasto),
-	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Gasto Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
-	CONSTRAINT FK_TMCCM_C_Gasto_Tipo_Gasto_REL_TMCCM_Gasto Foreign Key(TN_ID_Tipo_Gasto) references TMCCM_C_Gasto_Tipo_Gasto(TN_ID_Tipo_Gasto)
+	TN_ID_Gasto INT IDENTITY,
+	TN_ID_Caso INT,
+	TN_ID_Tipo_Gasto INT,
+	TF_Fecha DATE,
+	TN_Num_Factura INT,
+	TD_Monto FLOAT(2),
+	TC_Compra VARCHAR(100),
+	TB_Eliminado BIT DEFAULT 0,
+	CONSTRAINT PK_TCCM_Gasto PRIMARY KEY(TN_ID_Gasto),
+	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Gasto FOREIGN KEY(TN_ID_Caso) REFERENCES TMCCM_Caso(TN_ID_Caso),
+	CONSTRAINT FK_TMCCM_C_Gasto_Tipo_Gasto_REL_TMCCM_Gasto FOREIGN KEY(TN_ID_Tipo_Gasto) REFERENCES TMCCM_C_Gasto_Tipo_Gasto(TN_ID_Tipo_Gasto)
 )
 
 CREATE TABLE TMCCM_C_Arma_Marca(
