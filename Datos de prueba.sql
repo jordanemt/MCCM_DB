@@ -353,9 +353,6 @@ INSERT [dbo].[TMCCM_C_Persona_Genero] ([TN_ID_Genero], [TC_Descripcion], [TB_Eli
 SET IDENTITY_INSERT [dbo].[TMCCM_C_Persona_Genero] OFF
 GO
 
--- C_Persona Nacionalidad
-SET IDENTITY_INSERT [dbo].[TMCCM_C_Persona_Nacionalidad] ON 
-
 INSERT [dbo].[TMCCM_C_Persona_Nacionalidad] ([TN_ID_Nacionalidad], [TC_Descripcion], [TF_Fecha_Creacion]) VALUES (6, N'Otro o desconocido', CAST(N'2020-11-06T00:00:00.000' AS DateTime))
 INSERT [dbo].[TMCCM_C_Persona_Nacionalidad] ([TN_ID_Nacionalidad], [TC_Descripcion], [TF_Fecha_Creacion]) VALUES (7, N'Costa Rica', CAST(N'2020-11-06T00:00:00.000' AS DateTime))
 INSERT [dbo].[TMCCM_C_Persona_Nacionalidad] ([TN_ID_Nacionalidad], [TC_Descripcion], [TF_Fecha_Creacion]) VALUES (8, N'España', CAST(N'2020-11-06T00:00:00.000' AS DateTime))
@@ -436,3 +433,6 @@ INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_
 INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
      VALUES(6,6,100000,NULL,GETDATE())
 GO
+
+-- C_Persona Nacionalidad
+SET IDENTITY_INSERT [dbo].[TMCCM_C_Persona_Nacionalidad] ON 
