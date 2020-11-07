@@ -122,7 +122,7 @@ CREATE TABLE TMCCM_Tarea(
 
 CREATE TABLE TMCCM_C_Droga_Tipo_Droga(
 	TN_ID_Tipo_Droga int identity,
-	TF_Fecha_Creacion date,
+	TF_Fecha_Creacion datetime,
 	TC_Nombre varchar(50),
 	TC_Descripcion varchar(100),
 	TB_Eliminado bit default 1,
@@ -136,28 +136,17 @@ CREATE TABLE TMCCM_Entidad_Droga(
 	TC_Nombre varchar(50),
 	TC_Detalle varchar(200),
 	TN_Cantidad int,
-	TF_Fecha_Decomiso date,
-	TF_Hora_Decomiso time,
+	TF_Fecha_Decomiso datetime,
 	TB_Eliminado bit default 0,
+	TF_Fecha_Creacion datetime,
+	TF_Fecha_Modificacion datetime,
+	TC_Creado_Por varchar(50),
+	TC_Modificado_Por varchar(50),
+	TB_Verificado bit default 0,
 	CONSTRAINT PK_TCCM_Entidad_Droga PRImARY KEY(TN_ID_Droga),
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Entidad_Droga Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
 	CONSTRAINT FK_TMCCM_C_Droga_Tipo_Droga_REL_TMCCM_Entidad_Droga Foreign Key(TN_ID_Tipo_Droga) references TMCCM_C_Droga_Tipo_Droga(TN_ID_Tipo_Droga)
 )
-
-ALTER TABLE TMCCM_Entidad_Droga
-ADD TF_Fecha_Creacion date;
-
-ALTER TABLE TMCCM_Entidad_Droga
-ADD TF_Fecha_Modificacion date;
-
-ALTER TABLE TMCCM_Entidad_Droga
-ADD TC_Creado_Por varchar(50);
-
-ALTER TABLE TMCCM_Entidad_Droga
-ADD TC_Modificado_Por varchar(50);
-
-ALTER TABLE TMCCM_Entidad_Droga
-ADD TB_Verificado bit default 0;
 
 CREATE TABLE TMCCM_C_Gasto_Tipo_Gasto(
 	TN_ID_Tipo_Gasto INT IDENTITY,
@@ -201,28 +190,22 @@ CREATE TABLE TMCCM_Entidad_Arma(
 	TN_ID_Arma int identity,
 	TN_ID_Caso int,
 	TN_ID_Marca_Arma int,
-	TN_ID_Icono_Arma int,
 	TN_ID_Tipo_Arma int,
 	TC_Modelo_Arma varchar(40),
 	TC_Calibre varchar(15),
 	TC_Serie varchar(20),
-	TF_Fecha_Creacion date,
-	TF_Fecha_Modificacion date,
+	TF_Fecha_Creacion datetime,
+	TF_Fecha_Modificacion datetime,
 	TC_Creado_Por varchar(50),
 	TC_Modificado_Por varchar(50),
 	TB_Eliminado bit default 1,
+	TB_Verificado bit default 0,
+	TC_Comentario varchar(100),
 	CONSTRAINT PK_TCCM_Entidad_Arma PRImARY KEY(TN_ID_Arma),
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Entidad_Arma Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
 	CONSTRAINT FK_TMCCM_C_Arma_Tipo_Arma_REL_TMCCM_Entidad_Arma Foreign Key(TN_ID_Tipo_Arma) references TMCCM_C_Arma_Tipo_Arma(TN_ID_Tipo_Arma),
-	CONSTRAINT FK_TMCCM_C_Arma_Icono_Arma_REL_TMCCM_Entidad_Arma Foreign Key(TN_ID_Icono_Arma) references TMCCM_C_Arma_Icono_Arma(TN_ID_Icono_Arma),
 	CONSTRAINT FK_TMCCM_C_Arma_Marca_REL_TMCCM_Entidad_Arma Foreign Key(TN_ID_Marca_Arma) references TMCCM_C_Arma_Marca(TN_ID_Marca_Arma)
 )
-
-ALTER TABLE TMCCM_Entidad_Arma
-ADD TB_Verificado bit default 0;
-
-ALTER TABLE TMCCM_Entidad_Arma
-ADD TC_Comentario varchar(100);
 
 CREATE TABLE TMCCM_C_Ubicacion_Tipo_Ubicacion(
 	TN_ID_Tipo_Ubicacion int identity,
@@ -234,7 +217,7 @@ CREATE TABLE TMCCM_C_Ubicacion_Tipo_Ubicacion(
 
 CREATE TABLE TMCCM_C_Ubicacion_Provincia(
 	TN_ID_Provincia int identity,
-	TF_Fecha_Creacion date,
+	TF_Fecha_Creacion datetime,
 	TC_Descripcion varchar(100),
 	TB_Eliminado bit default 1,
 	CONSTRAINT PK_TCCM_C_Ubicacion_Provincia PRImARY KEY(TN_ID_Provincia)
@@ -243,7 +226,7 @@ CREATE TABLE TMCCM_C_Ubicacion_Provincia(
 CREATE TABLE TMCCM_C_Ubicacion_Canton(
 	TN_ID_Canton int identity,
 	TN_ID_Provincia int,
-	TF_Fecha_Creacion date,
+	TF_Fecha_Creacion datetime,
 	TC_Descripcion varchar(100),
 	TB_Eliminado bit default 1,
 	CONSTRAINT PK_TCCM_C_Ubicacion_Canton PRImARY KEY(TN_ID_Canton),
@@ -254,7 +237,7 @@ CREATE TABLE TMCCM_C_Ubicacion_Canton(
 CREATE TABLE TMCCM_C_Ubicacion_Distrito(
 	TN_ID_Distrito int identity,
 	TN_ID_Canton int,
-	TF_Fecha_Creacion date,
+	TF_Fecha_Creacion datetime,
 	TC_Descripcion varchar(100),
 	TB_Eliminado bit default 1,
 	CONSTRAINT PK_TCCM_C_Ubicacion_Distrito PRImARY KEY(TN_ID_Distrito),
@@ -273,11 +256,12 @@ CREATE TABLE TMCCM_Entidad_Ubicacion(
 	TC_Sennas varchar(100),
 	TD_Latitud float,
 	TD_Longitud float,
-	TF_Fecha_Creacion date,
-	TF_Fecha_Modificacion date,
+	TF_Fecha_Creacion datetime,
+	TF_Fecha_Modificacion datetime,
 	TC_Creado_Por varchar(50),
 	TC_Modificado_Por varchar(50),
 	TB_Eliminado bit default 1,
+	TB_Verificado bit default 0,
 	CONSTRAINT PK_TCCM_Entidad_Ubicacion PRImARY KEY(TN_ID_Ubicacion),
 	
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Entidad_Ubicacion Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
@@ -295,8 +279,6 @@ CREATE TABLE TMCCM_Entidad_Ubicacion(
 	Foreign Key(TN_ID_Distrito) references TMCCM_C_Ubicacion_Distrito(TN_ID_Distrito),
 )
 
-ALTER TABLE TMCCM_Entidad_Ubicacion
-ADD TB_Verificado bit default 0;
 
 CREATE TABLE TMCCM_C_Telefono_Empresa_Telefonica(
 	TN_ID_Proveedor int identity,
@@ -312,8 +294,8 @@ CREATE TABLE TMCCM_Entidad_Telefono(
 	TN_ID_Proveedor int,
 	TC_Comentario varchar(100),
 	TN_Numero int,
-	TF_Fecha_Creacion date,
-	TF_Fecha_Modificacion date,
+	TF_Fecha_Creacion datetime,
+	TF_Fecha_Modificacion datetime,
 	TC_Creado_Por varchar(50),
 	TC_Modificado_Por varchar(50),
 	TB_Verificado bit default 0,
@@ -328,7 +310,7 @@ CREATE TABLE TMCCM_Entidad_Telefono(
 CREATE TABLE TMCCM_C_Vehiculo_Marca(
 	TN_ID_Marca_Vehiculo int identity,
 	TC_Descripcion varchar(100),
-	TF_Fecha_Creacion date,
+	TF_Fecha_Creacion datetime,
 	TB_Eliminado bit default 1,
 	CONSTRAINT PK_TMCCM_C_Vehiculo_Marca PRImARY KEY(TN_ID_Marca_Vehiculo)
 )
@@ -337,7 +319,7 @@ CREATE TABLE TMCCM_C_Vehiculo_Marca(
 CREATE TABLE TMCCM_C_Vehiculo_Color(
 	TN_ID_Color_Vehiculo int identity,
 	TC_Descripcion varchar(100),
-	TF_Fecha_Creacion date,
+	TF_Fecha_Creacion datetime,
 	TB_Eliminado bit default 1,
 	CONSTRAINT PK_TMCCM_C_Vehiculo_Color PRImARY KEY(TN_ID_Color_Vehiculo)
 )
@@ -345,7 +327,7 @@ CREATE TABLE TMCCM_C_Vehiculo_Color(
 CREATE TABLE TMCCM_C_Vehiculo_Clase(
 	TN_ID_Clase_Vehiculo int identity,
 	TC_Descripcion varchar(100),
-	TF_Fecha_Creacion date,
+	TF_Fecha_Creacion datetime,
 	TB_Eliminado bit default 1,
 	CONSTRAINT PK_TMCCM_C_Vehiculo_Clase PRImARY KEY(TN_ID_Clase_Vehiculo)
 )
@@ -354,37 +336,33 @@ CREATE TABLE TMCCM_Entidad_Vehiculo(
 	TN_ID_Vehiculo int identity,
 	TN_ID_Caso int,
 	TN_ID_Marca_Vehiculo int,
-	TN_ID_Icono_Vehiculo int,
 	TN_ID_Color_Vehiculo int,
 	TC_Placa varchar(20),
-	TC_Clase varchar(50),
+	TN_ID_Clase_Vehiculo varchar(50),
 	TC_Estilo varchar(50),
 	TC_Comentario varchar(100),
 	TN_Anno int,
-	TF_Fecha_Creacion date,
-	TF_Fecha_Modificacion date,
+	TF_Fecha_Creacion datetime,
+	TF_Fecha_Modificacion datetime,
 	TC_Creado_Por varchar(50),
 	TC_Modificado_Por varchar(50),
 	TB_Eliminado bit default 1,
+	TB_Verificado bit default 0,
+	TB_Fotografia varbinary(MAX),
+
 	CONSTRAINT PK_TCCM_Entidad_Vehiculo PRImARY KEY(TN_ID_Vehiculo),
 	
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Entidad_Vehiculo Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
-	
-	CONSTRAINT FK_TMCCM_C_Vehiculo_Icono_REL_TMCCM_Entidad_Vehiculo 
-	Foreign Key(TN_ID_Icono_Vehiculo) references TMCCM_C_Vehiculo_Icono(TN_ID_Icono_Vehiculo),
-	
+
 	CONSTRAINT FK_TMCCM_C_Vehiculo_Marca_REL_TMCCM_Entidad_Vehiculo 
 	Foreign Key(TN_ID_Marca_Vehiculo) references TMCCM_C_Vehiculo_Marca(TN_ID_Marca_Vehiculo),
 
 	CONSTRAINT FK_TMCCM_C_Vehiculo_Color_REL_TMCCM_Entidad_Vehiculo 
-	Foreign Key(TN_ID_Color_Vehiculo) references TMCCM_C_Vehiculo_Color(TN_ID_Color_Vehiculo),	
+	Foreign Key(TN_ID_Color_Vehiculo) references TMCCM_C_Vehiculo_Color(TN_ID_Color_Vehiculo),
+	
+	CONSTRAINT FK_TMCCM_C_Vehiculo_Clase_REL_TMCCM_Entidad_Vehiculo 
+	Foreign Key(TN_ID_Clase_Vehiculo) references TMCCM_C_Vehiculo_Clase(TN_ID_Clase_Vehiculo),	
 )
-
-ALTER TABLE TMCCM_Entidad_Vehiculo
-ADD TB_Verificado bit default 0;
-
-ALTER TABLE TMCCM_Entidad_Vehiculo
-ADD TB_Fotografia varbinary(MAX);
 
 CREATE TABLE TMCCM_C_Persona_Tipo_Identificacion(
 	TN_ID_Tipo_Identificacion int identity,
@@ -405,7 +383,7 @@ CREATE TABLE TMCCM_C_Persona_Sexo(
 CREATE TABLE TMCCM_C_Persona_Nacionalidad(
 	TN_ID_Nacionalidad int identity,
 	TC_Descripcion varchar(100),
-	TF_Fecha_Creacion date,
+	TF_Fecha_Creacion datetime,
 	CONSTRAINT PK_TMCCM_C_Persona_Nacionalidad PRImARY KEY(TN_ID_Nacionalidad)
 )
 
@@ -420,7 +398,6 @@ CREATE TABLE TMCCM_Entidad_Persona(
 	TN_ID_Persona int identity,
 	TN_ID_Caso int,
 	TN_ID_Tipo_Identificacion int,
-	TN_ID_Icono_Persona int,
 	TN_ID_Sexo int,
 	TN_ID_Genero int,
 	TN_ID_Nacionalidad int,
@@ -434,11 +411,14 @@ CREATE TABLE TMCCM_Entidad_Persona(
 	TB_Fallecido bit,
 	TN_Autopsia int,
 	TB_Exp_Criminal bit,
-	TF_Fecha_Creacion date,
-	TF_Fecha_Modificacion date,
+	TF_Fecha_Creacion datetime,
+	TF_Fecha_Modificacion datetime,
 	TC_Creado_Por varchar(50),
 	TC_Modificado_Por varchar(50),
-	TB_Verificado bit,
+	TTB_Verificado bit default 0,
+	B_Eliminado bit default 1,
+	TC_Alias varchar(30),
+	TC_Comentario varchar(100),
 	CONSTRAINT PK_TCCM_Entidad_Persona PRImARY KEY(TN_ID_Persona),
 	
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Entidad_PErsona Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
@@ -446,9 +426,6 @@ CREATE TABLE TMCCM_Entidad_Persona(
 	CONSTRAINT FK_TMCCM_C_Persona_Tipo_Identificacion_REL_TMCCM_Entidad_Persona 
 	Foreign Key(TN_ID_Tipo_Identificacion) references TMCCM_C_Persona_Tipo_Identificacion(TN_ID_Tipo_Identificacion),
 	
-	CONSTRAINT FK_TMCCM_C_Persona_Icono_Persona_REL_TMCCM_Entidad_Persona 
-	Foreign Key(TN_ID_Icono_Persona) references TMCCM_C_Persona_Icono_Persona(TN_ID_Icono_Persona),
-
 	CONSTRAINT FK_TMCCM_C_Persona_Sexo_REL_TMCCM_Entidad_Persona 
 	Foreign Key(TN_ID_Sexo) references TMCCM_C_Persona_Sexo(TN_ID_Sexo),
 
@@ -459,18 +436,17 @@ CREATE TABLE TMCCM_Entidad_Persona(
 	Foreign Key(TN_ID_Nacionalidad) references TMCCM_C_Persona_Nacionalidad(TN_ID_Nacionalidad)
 )
 
-ALTER TABLE TMCCM_Entidad_Persona
-ADD CONSTRAINT df_estado_Verificado
-DEFAULT 0 FOR TB_Verificado;
 
-ALTER TABLE TMCCM_Entidad_Persona
-ADD TB_Eliminado bit default 1;
 
-ALTER TABLE TMCCM_Entidad_Persona
-ADD TC_Alias varchar(30);
+CREATE TABLE TMCCM_C_Persona_Juridica_Tipo_Organizacion(
+	TN_ID_Tipo_Organizacion int identity,
+	TC_Descripcion varchar(100),
+	TB_Eliminado bit default 0,
+	CONSTRAINT PK_TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn PRImARY KEY(TN_ID_Tipo_Organizacion)
+)
 
 CREATE TABLE TMCCM_Entidad_Persona_Juridica(
-	TN_ID_Persona_Juridica int identity primary key,
+	TN_ID_Persona_Juridica int identity,
 	TN_ID_Caso int,
 	TC_ID_Cedula_Juridica varchar(50),
     TC_Nombre_Organizaciรณn varchar(100),
@@ -484,485 +460,24 @@ CREATE TABLE TMCCM_Entidad_Persona_Juridica(
 	TC_Modificado_Por varchar(50),
 	TB_Verificado bit,
 	TB_Eliminado bit default 0,
-	CONSTRAINT PK_TCCM_C_Entidad_Persona_Juridica Primary key(TN_Id_Persona_Juridica),
+
+	CONSTRAINT PK_TCCM_C_Entidad_Persona_Juridica Primary key(TN_ID_Persona_Juridica),
+
+	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Entidad_Persona_Juridica Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
+
 	CONSTRAINT FK_TMCCM_C_Persona_Juridica_Tipo_Organizacion_REL_TMCCM_Entidad_Persona_Juridica 
 	Foreign Key(TN_ID_Tipo_Organizacion) references TMCCM_C_Persona_Juridica_Tipo_Organizacion(TN_ID_Tipo_Organizacion)
 )
 
 
-CREATE TABLE TMCCM_C_Persona_Juridica_Tipo_Organizacion(
-	TN_ID_Tipo_Organizacion int identity,
-	TC_Descripcion varchar(100),
-	TB_Eliminado bit default 0,
-	CONSTRAINT PK_TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn PRImARY KEY(TN_ID_Tipo_Organizacion)
-)
 
 
-ALTER TABLE dbo.TMCCM_Entidad_Droga
-ALTER COLUMN TF_Fecha_Creacion datetime;
 
-ALTER TABLE dbo.TMCCM_Entidad_Droga
 
-ALTER TABLE TMCCM_Entidad_Droga
-DROP COLUMN TF_Hora_Decomiso;
 
----Insertar Marca Arma-----
-INSERT INTO [dbo].[TMCCM_C_Arma_Marca]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('DESCONOCIDO'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Arma_Marca]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('A.A. BROWN &amp; SONS'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Arma_Marca]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('ACCU-TEK'
-           ,'0')
-GO
-------Insertar C_Arma_Tipo_Arma
-INSERT INTO [dbo].[TMCCM_C_Arma_Tipo_Arma]
-           ([TC_Descripcion]
-           ,[TB_Eliminado]
-           ,[TN_Peso])
-     VALUES
-           ('AARMA BLNACA'
-           ,'0'
-           ,'10')
-GO
-INSERT INTO [dbo].[TMCCM_C_Arma_Tipo_Arma]
-           ([TC_Descripcion]
-           ,[TB_Eliminado]
-           ,[TN_Peso])
-     VALUES
-           ('ARMA DE FUEGO'
-           ,'0'
-           ,'20')
-GO
-INSERT INTO [dbo].[TMCCM_C_Arma_Tipo_Arma]
-           ([TC_Descripcion]
-           ,[TB_Eliminado]
-           ,[TN_Peso])
-     VALUES
-           ('ARMA CONTUNDENTE'
-           ,'0'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Arma_Tipo_Arma]
-           ([TC_Descripcion]
-           ,[TB_Eliminado]
-           ,[TN_Peso])
-     VALUES
-           ('MUNICION'
-           ,'0'
-           ,'0')
-GO
 
------Insertar C_Tipo_Ubicación------
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Tipo_Ubicacion]
-           ([TC_Nombre]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('CASA'
-           ,'Construcción cubierta destinada a ser habitada'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Tipo_Ubicacion]
-           ([TC_Nombre]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('PARQUE'
-           ,'Terreno acotado en núcleos rurales o urbanos, generalmente con plantas y árboles'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Tipo_Ubicacion]
-           ([TC_Nombre]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('EDIFICIO'
-           ,'Construcción de grandes dimensiones fabricada con piedras, ladrillos y materiales resistentes'
-           ,'0')
-GO
 
--------INSERTAR C_Ubicacion_Provincia-----
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Provincia]
-           ([TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           (GETDATE()
-           ,'NO INDICA'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Provincia]
-           ([TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           (GETDATE()
-           ,'SAN JOSÉ'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Provincia]
-           ([TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           (GETDATE()
-           ,'CARTAGO'
-           ,'0')
-GO
 
------INSERTAR C_Ubicacion_Cantón---
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Canton]
-           ([TN_ID_Provincia]
-           ,[TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('1'
-           ,GETDATE()
-           ,'NO INDICA'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Canton]
-           ([TN_ID_Provincia]
-           ,[TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('2'
-           ,GETDATE()
-           ,'SAN JOSÉ'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Canton]
-           ([TN_ID_Provincia]
-           ,[TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('3'
-           ,GETDATE()
-           ,'PARAÍSO'
-           ,'0')
-GO
-
-----INSERTAR C_Ubicacion_Distrito-----
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Distrito]
-           ([TN_ID_Canton]
-           ,[TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('1'
-           ,GETDATE()
-           ,'NO INDICA'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Distrito]
-           ([TN_ID_Canton]
-           ,[TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('2'
-           ,GETDATE()
-           ,'NO INDICA'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Ubicacion_Distrito]
-           ([TN_ID_Canton]
-           ,[TF_Fecha_Creacion]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('3'
-           ,GETDATE()
-           ,'NO INDICA'
-           ,'0')
-GO
---------Insertar C_Vehículos_Marca------
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Marca]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('DESCONOCIDO'
-           ,GETDATE()
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Marca]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('MARCA NO REGISTRADA'
-           ,GETDATE()
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Marca]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('FOREDIL'
-           ,GETDATE()
-           ,'0')
-GO
-
---------INSERTAR C_Vehiculo_Clase-----
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Clase]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('Motocicleta'
-           ,GETDATE()
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Clase]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('Motocarro'
-           ,GETDATE()
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Clase]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('Automovil'
-           ,GETDATE()
-           ,'0')
-GO
------INSERTAR C_Vehiculo_Color-----
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Color]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('DESCONOCIDO'
-           ,GETDATE()
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Color]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('CAFE'
-           ,GETDATE()
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Vehiculo_Color]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion]
-           ,[TB_Eliminado])
-     VALUES
-           ('CELESTE'
-           ,GETDATE()
-           ,'0')
-GO
-
--------INSERTAR C_Persona_Juridica_Tipo_Organización----
-INSERT INTO [dbo].[TMCCM_C_Persona_Juridica_Tipo_Organización]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('Empresario Individual'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Juridica_Tipo_Organización]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('Sociedad Anonima'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Juridica_Tipo_Organización]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('Asociaciones sin ánimo de lucro'
-           ,'0')
-GO
-
-------INSERTAR C_Tipo_Identificacion----
-INSERT INTO [dbo].[TMCCM_C_Persona_Tipo_Identificacion]
-           ([TC_Descripcion]
-           ,[TC_Mascara]
-           ,[TF_Fecha_Creacion])
-     VALUES
-           ('DESCONOCIDO'
-           ,'xxxxxxxxxxxxxxxxxxxx'
-           ,GETDATE())
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Tipo_Identificacion]
-           ([TC_Descripcion]
-           ,[TC_Mascara]
-           ,[TF_Fecha_Creacion])
-     VALUES
-           ('CEDULA'
-           ,'##########'
-           ,GETDATE())
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Tipo_Identificacion]
-           ([TC_Descripcion]
-           ,[TC_Mascara]
-           ,[TF_Fecha_Creacion])
-     VALUES
-           ('CEDULA DE RESIDENCIA'
-           ,'xxxxxxxxxxxxxxxxxxxx'
-           ,GETDATE())
-GO
-----INSERTAR C_Persona_Sexo----
-INSERT INTO [dbo].[TMCCM_C_Persona_Sexo]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('DESCONOCIDO'
-           ,0)
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Sexo]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('HOMBRE'
-           ,0)
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Sexo]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('MUJER'
-           ,0)
-GO
-
------INSERTAR C_Persona_Genero----
-INSERT INTO [dbo].[TMCCM_C_Persona_Genero]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('DESCONOCIDO'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Genero]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('INDEFINIDO'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Genero]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('MASCULINO'
-           ,'0')
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Genero]
-           ([TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           ('FEMENINO'
-           ,'0')
-GO
--------INSERTAR C_Persona_Nacionalidad----
-INSERT INTO [dbo].[TMCCM_C_Persona_Nacionalidad]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion])
-     VALUES
-           ('OTRO O DESCONOCIDO'
-           ,GETDATE())
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Nacionalidad]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion])
-     VALUES
-           ('COSTA RICA'
-           ,GETDATE())
-GO
-INSERT INTO [dbo].[TMCCM_C_Persona_Nacionalidad]
-           ([TC_Descripcion]
-           ,[TF_Fecha_Creacion])
-     VALUES
-           ('ABJASIA'
-           ,GETDATE())
-GO
-////Catalogo_Tipo_Droga
-INSERT INTO [dbo].[TMCCM_C_Droga_Tipo_Droga]
-           ([TF_Fecha_Creacion]
-           ,[TC_Nombre]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           (GETDATE()
-           ,'Alcohol'
-           ,'Bebida que contiene alcohol etílico.'
-           ,1)
-GO
-INSERT INTO [dbo].[TMCCM_C_Droga_Tipo_Droga]
-           ([TF_Fecha_Creacion]
-           ,[TC_Nombre]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           (GETDATE()
-           ,'Tabaco'
-           ,'Hoja de esta planta que, curada y preparada, se fuma, se masca o se aspira en forma de rapé.'
-           ,1)
-GO
-INSERT INTO [dbo].[TMCCM_C_Droga_Tipo_Droga]
-           ([TF_Fecha_Creacion]
-           ,[TC_Nombre]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           (GETDATE()
-           ,'Marihuana'
-           ,'Una sustancia química que proviene de una planta llamada cannabis'
-           ,1)
-GO
-INSERT INTO [dbo].[TMCCM_C_Droga_Tipo_Droga]
-           ([TF_Fecha_Creacion]
-           ,[TC_Nombre]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           (GETDATE()
-           ,'Cocaína'
-           ,'Droga derivada de la planta de coca un adicto a la cocaína'
-           ,1)
-GO
-INSERT INTO [dbo].[TMCCM_C_Droga_Tipo_Droga]
-           ([TF_Fecha_Creacion]
-           ,[TC_Nombre]
-           ,[TC_Descripcion]
-           ,[TB_Eliminado])
-     VALUES
-           (GETDATE()
-           ,'Crack'
-           ,'Droga de aspecto sólido derivada de la cocaína y altamente adictiva.'
-           ,1)
-GO
-
-ALTER TABLE TMCCM_Entidad_Persona_Juridica
-ADD CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Entidad_Persona_Juridica Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso)
 
 
 
