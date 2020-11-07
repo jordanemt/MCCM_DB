@@ -442,14 +442,14 @@ CREATE TABLE TMCCM_C_Persona_Juridica_Tipo_Organizacion(
 	TN_ID_Tipo_Organizacion int identity,
 	TC_Descripcion varchar(100),
 	TB_Eliminado bit default 0,
-	CONSTRAINT PK_TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn PRImARY KEY(TN_ID_Tipo_Organizacion)
+	CONSTRAINT PK_TMCCM_C_Persona_Juridica_Tipo_Organizacion PRImARY KEY(TN_ID_Tipo_Organizacion)
 )
 
 CREATE TABLE TMCCM_Entidad_Persona_Juridica(
 	TN_ID_Persona_Juridica int identity,
 	TN_ID_Caso int,
 	TC_ID_Cedula_Juridica varchar(50),
-    TC_Nombre_Organizaciรณn varchar(100),
+    TC_Nombre_Organizacion varchar(100),
 	TC_Nombre_Comercial varchar(100),
 	TN_ID_Tipo_Organizacion int,
 	TC_Sitio_Web varchar(200),
