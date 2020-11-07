@@ -424,6 +424,7 @@ INSERT [dbo].[TMCCM_Entidad_Vehiculo] ([TN_ID_Vehiculo], [TN_ID_Caso], [TN_ID_Ma
 
 INSERT [dbo].[TMCCM_Entidad_Vehiculo] ([TN_ID_Vehiculo], [TN_ID_Caso], [TN_ID_Marca_Vehiculo], [TN_ID_Color_Vehiculo], [TC_Placa], [TC_Estilo], [TC_Comentario], [TN_Anno], [TF_Fecha_Creacion], [TF_Fecha_Modificacion], [TC_Creado_Por], [TC_Modificado_Por], [TB_Eliminado], [TB_Verificado], [TB_Fotografia], [TN_ID_Clase_Vehiculo]) VALUES (50, 6, 7, 5, N'33304', N' ', NULL, NULL, CAST(N'2020-11-06T00:00:00.000' AS DateTime), CAST(N'2020-11-06T00:00:00.000' AS DateTime), N'Valeria Leiva Quir�s', N'Valeria Leiva Quir�s', 0, 0, NULL, 11)
 
+INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
      VALUES(1,1,100000,NULL,GETDATE())
 INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
      VALUES(2,2,100000,NULL,GETDATE())
