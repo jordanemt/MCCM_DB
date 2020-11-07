@@ -22,34 +22,37 @@ INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Ape
      VALUES(N'902938574',N'Pepe',N'Chaves',N'Sanabria',N'chaves@gmail.com',N'123',0,0)
 INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
      VALUES(N'112938574',N'Jose',N'Mata',N'Quesada',N'mata@gmail.com',N'123',0,0)
+GO
 
 --Rol
 INSERT INTO [dbo].[TMCCM_Rol]([TC_Nombre],[TC_Descripcion],[TF_Fecha_Creacion],[TB_Eliminado])
      VALUES(N'Digitador',N'Usuario general',CAST(N'2020-11-05T10:57:10.510' AS DateTime),0)
 INSERT INTO [dbo].[TMCCM_Rol]([TC_Nombre],[TC_Descripcion],[TF_Fecha_Creacion],[TB_Eliminado])
      VALUES(N'Consultar',N'Usuario de consultas',CAST(N'2020-11-05T10:57:10.510' AS DateTime),0)
+GO
 
 --Usuario_Rol
 INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
      VALUES(1,1)
 INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
-     VALUES(1,1)
-INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
-     VALUES(1,1)
-INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
-     VALUES(1,1)
-INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
      VALUES(1,2)
 INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
-     VALUES(1,2)
+     VALUES(1,3)
 INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
-     VALUES(1,2)
+     VALUES(1,4)
 INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
-     VALUES(1,2)
+     VALUES(2,5)
 INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
-     VALUES(1,2)
+     VALUES(2,6)
 INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
-     VALUES(1,2)
+     VALUES(2,7)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(2,8)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(2,9)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(2,10)
+GO
 
 --Caso
 SET IDENTITY_INSERT [dbo].[TMCCM_Caso] ON 
@@ -146,30 +149,116 @@ GO
 
 --Tipo_Gasto
 INSERT INTO dbo.TMCCM_C_Gasto_Tipo_Gasto(TC_Nombre,TC_Descripcion)
-	VALUES('', '')
+	VALUES(N'Operativo', N'Gasto operativo')
+INSERT INTO dbo.TMCCM_C_Gasto_Tipo_Gasto(TC_Nombre,TC_Descripcion)
+	VALUES(N'Combustible', N'Gasto en combustible')
 GO
 
 --Gasto
 INSERT INTO dbo.TMCCM_Gasto(TN_ID_Caso,TN_ID_Tipo_Gasto,TF_Fecha,TN_Num_Factura,TD_Monto,TC_Compra)
-	VALUES(0,0,0,0,'')
+	VALUES(1,1,CAST(N'2020-8-05T03:06:00.000' AS DateTime),0294,1000,'Compra de material')
+GO
+INSERT INTO dbo.TMCCM_Gasto(TN_ID_Caso,TN_ID_Tipo_Gasto,TF_Fecha,TN_Num_Factura,TD_Monto,TC_Compra)
+	VALUES(1,2,CAST(N'2020-11-05T03:06:00.000' AS DateTime),4312,1000,'Pago de combustible')
+GO
+INSERT INTO dbo.TMCCM_Gasto(TN_ID_Caso,TN_ID_Tipo_Gasto,TF_Fecha,TN_Num_Factura,TD_Monto,TC_Compra)
+	VALUES(2,1,CAST(N'2020-11-05T03:06:00.000' AS DateTime),6532,1000,'Compra de material')
+GO
+INSERT INTO dbo.TMCCM_Gasto(TN_ID_Caso,TN_ID_Tipo_Gasto,TF_Fecha,TN_Num_Factura,TD_Monto,TC_Compra)
+	VALUES(3,2,CAST(N'2020-10-05T03:06:00.000' AS DateTime),4693,1000,'Pago de combustible')
 GO
 
 --Grupo
 INSERT INTO dbo.TMCCM_Grupo(TN_ID_Caso,TF_Hora,TC_Zona,TF_Fecha_Inicio,TF_Fecha_Final,TB_Mando)
-     VALUES(0,'','','','',0)
+     VALUES(1,CAST(GETDATE() as TIME),N'Turrialba',GETDATE(),NULL,1)
+INSERT INTO dbo.TMCCM_Grupo(TN_ID_Caso,TF_Hora,TC_Zona,TF_Fecha_Inicio,TF_Fecha_Final,TB_Mando)
+     VALUES(1,CAST(GETDATE() as TIME),N'Turrialba',GETDATE(),NULL,0)
+INSERT INTO dbo.TMCCM_Grupo(TN_ID_Caso,TF_Hora,TC_Zona,TF_Fecha_Inicio,TF_Fecha_Final,TB_Mando)
+     VALUES(2,CAST(GETDATE() as TIME),N'Turrialba',GETDATE(),NULL,1)
+INSERT INTO dbo.TMCCM_Grupo(TN_ID_Caso,TF_Hora,TC_Zona,TF_Fecha_Inicio,TF_Fecha_Final,TB_Mando)
+     VALUES(2,CAST(GETDATE() as TIME),N'Turrialba',GETDATE(),NULL,0)
+INSERT INTO dbo.TMCCM_Grupo(TN_ID_Caso,TF_Hora,TC_Zona,TF_Fecha_Inicio,TF_Fecha_Final,TB_Mando)
+     VALUES(3,CAST(GETDATE() as TIME),N'Turrialba',GETDATE(),NULL,1)
+INSERT INTO dbo.TMCCM_Grupo(TN_ID_Caso,TF_Hora,TC_Zona,TF_Fecha_Inicio,TF_Fecha_Final,TB_Mando)
+     VALUES(3,CAST(GETDATE() as TIME),N'Turrialba',GETDATE(),NULL,0)
 GO
 
 --Grupo_Usuario
 INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
-     VALUES(0,0,0)
+     VALUES(1,1,1)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(2,1,0)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(3,1,0)
+
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(4,2,1)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(5,2,0)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(6,2,0)
+
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(7,3,1)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(8,3,0)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(9,3,0)
+
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(1,4,1)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(2,4,0)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(3,4,0)
+
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(4,5,1)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(5,5,0)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(6,5,0)
+
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(7,6,1)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(8,6,0)
+INSERT INTO dbo.TMCCM_Grupo_Usuario(TN_ID_Usuario,TN_ID_Grupo,TB_Encargado)
+     VALUES(9,6,0)
 GO
 
 --Vehiculo
 INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
-     VALUES('',0,0,'')
+     VALUES('A223',100000,1,'Auto')
+INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
+     VALUES('F323',100000,1,'Auto')
+INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
+     VALUES('BT23',100000,0,'Auto')
+INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
+     VALUES('J023',100000,1,'Auto')
+INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
+     VALUES('5023',100000,1,'Auto')
+INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
+     VALUES('KK43',100000,1,'Auto')
+INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
+     VALUES('B3DF',100000,1,'Auto')
+INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
+     VALUES('312D',100000,0,'Auto')
+INSERT INTO dbo.TMCCM_Vehiculo(TC_Placa,TC_Kilometraje,TB_En_Uso,TC_Descripcion)
+     VALUES('DFG1',100000,0,'Auto')
 GO
 
 --Grupo_Vehiculo
 INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
-     VALUES(0,0,0,null,'')
+     VALUES(1,1,100000,NULL,GETDATE())
+INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
+     VALUES(2,2,100000,NULL,GETDATE())
+INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
+     VALUES(3,3,100000,NULL,GETDATE())
+INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
+     VALUES(4,4,100000,NULL,GETDATE())
+INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
+     VALUES(5,5,100000,NULL,GETDATE())
+INSERT INTO dbo.TMCCM_Grupo_Vehiculo(TN_ID_Vehiculo,TN_ID_Grupo,TN_Km_Inicio,TN_Km_Regreso,TF_Fecha_Hora)
+     VALUES(6,6,100000,NULL,GETDATE())
 GO
