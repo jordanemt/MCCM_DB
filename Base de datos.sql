@@ -113,6 +113,7 @@ CREATE TABLE TMCCM_Tarea(
 	TF_Fecha datetime,
 	TC_Diligencia varchar(100),
 	TC_Lugar varchar(50),
+	TN_Tipo int,
 	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TCCM_Tarea PRImARY KEY(TN_ID_Tarea),
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Tarea Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
