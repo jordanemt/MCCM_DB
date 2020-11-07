@@ -475,8 +475,6 @@ CREATE TABLE TMCCM_Entidad_Persona_Juridica(
 	TC_ID_Cedula_Juridica varchar(50),
     TC_Nombre_Organizaciรณn varchar(100),
 	TC_Nombre_Comercial varchar(100),
-	TN_ID_Icono_Persona_Juridica int,
-	TB_Fotografia varbinary(MAX),
 	TN_ID_Tipo_Organizacion int,
 	TC_Sitio_Web varchar(200),
 	TC_Comentario varchar(100),
@@ -486,19 +484,14 @@ CREATE TABLE TMCCM_Entidad_Persona_Juridica(
 	TC_Modificado_Por varchar(50),
 	TB_Verificado bit,
 	TB_Eliminado bit default 1,
-
-	
-	CONSTRAINT FK_TMCCM_C_Persona_Juridica_Icono_Persona_Juridica_REL_TMCCM_Entidad_Persona_Juridica 
-	Foreign Key(TN_ID_Icono_Persona_Juridica) references TMCCM_C_Persona_Juridica_Icono_Persona_Juridica(TN_ID_Icono_Persona_Juridica),
-
-	CONSTRAINT FK_TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn_REL_TMCCM_Entidad_Persona_Juridica 
-	Foreign Key(TN_ID_Tipo_Organizacion) references TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn(TN_ID_Tipo_Organizacion),
+	CONSTRAINT FK_TMCCM_C_Persona_Juridica_Tipo_Organizacion_REL_TMCCM_Entidad_Persona_Juridica 
+	Foreign Key(TN_ID_Tipo_Organizacion) references TMCCM_C_Persona_Juridica_Tipo_Organizacion(TN_ID_Tipo_Organizacion),
 
 
 )
 
 
-CREATE TABLE TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn(
+CREATE TABLE TMCCM_C_Persona_Juridica_Tipo_Organizacion(
 	TN_ID_Tipo_Organizacion int identity,
 	TC_Descripcion varchar(100),
 	TB_Eliminado bit default 1,
