@@ -1,6 +1,56 @@
 USE MCCM
 GO
 
+--Usuario
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'102938574',N'Arturo',N'Campos',N'Bogantes',N'bogante@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'202938574',N'Maikel',N'Matamoroz',N'Zuñiga',N'matamoroz@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'302938574',N'Veleria',N'Leiva',N'Quiros',N'leiva@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'402938574',N'Jordan',N'Méndez',N'Torres',N'mendez@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'502938574',N'María',N'Alvarado',N'Loría',N'alvarado@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'602938574',N'Sofia',N'Pérez',N'Torres',N'perez@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'702938574',N'Luis',N'Solís',N'Cascante',N'solis@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'802938574',N'Daniel',N'Centeno',N'Calvo',N'centeno@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'902938574',N'Pepe',N'Chaves',N'Sanabria',N'chaves@gmail.com',N'123',0,0)
+INSERT INTO [dbo].[TMCCM_Usuario]([TC_Identificacion],[TC_Nombre],[TC_Primer_Apellido],[TC_Segundo_Apellido],[TC_Correo],[TC_Contrasennia],[TB_Eliminado],[TB_En_Grupo])
+     VALUES(N'112938574',N'Jose',N'Mata',N'Quesada',N'mata@gmail.com',N'123',0,0)
+
+--Rol
+INSERT INTO [dbo].[TMCCM_Rol]([TC_Nombre],[TC_Descripcion],[TF_Fecha_Creacion],[TB_Eliminado])
+     VALUES(N'Digitador',N'Usuario general',CAST(N'2020-11-05T10:57:10.510' AS DateTime),0)
+INSERT INTO [dbo].[TMCCM_Rol]([TC_Nombre],[TC_Descripcion],[TF_Fecha_Creacion],[TB_Eliminado])
+     VALUES(N'Consultar',N'Usuario de consultas',CAST(N'2020-11-05T10:57:10.510' AS DateTime),0)
+
+--Usuario_Rol
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,1)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,1)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,1)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,1)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,2)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,2)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,2)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,2)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,2)
+INSERT INTO [dbo].[TMCCM_Usuario_Rol]([TN_ID_Rol],[TN_ID_Usuario])
+     VALUES(1,2)
+
 --Caso
 SET IDENTITY_INSERT [dbo].[TMCCM_Caso] ON 
 INSERT [dbo].[TMCCM_Caso] ([TN_ID_Caso], [TN_ECU], [TC_Nombre_Caso], [TC_Enfoque_Trabajo], [TC_Area_Trabajo], [TN_Nivel], [TC_Descripcion], [TC_Fuente], [TB_Eliminado], [TC_Delito], [TF_Fecha]) VALUES (1, 2, N'Lucha de territorio San Jose', N'Narcotrafico', N'Narcomenudeo', 11, N'Lucha de bandas centrales de San José', N'Maikel', 0, N'Narcotrafico y Bandas', CAST(N'2020-10-05T00:00:00.000' AS DateTime))
@@ -93,7 +143,6 @@ INSERT [dbo].[TMCCM_Entidad_Persona_Juridica] ([TN_ID_Persona_Juridica], [TN_ID_
 INSERT [dbo].[TMCCM_Entidad_Persona_Juridica] ([TN_ID_Persona_Juridica], [TN_ID_Caso], [TC_ID_Cedula_Juridica], [TC_Nombre_Organización], [TC_Nombre_Comercial], [TN_ID_Tipo_Organizacion], [TC_Sitio_Web], [TC_Comentario], [TF_Fecha_Creacion], [TF_Fecha_Modificacion], [TC_Creado_Por], [TC_Modificado_Por], [TB_Verificado], [TB_Eliminado]) VALUES (6, 3, N'31235172', N'ORG 3', N'O.R.G SA 3', 1, N'SAORG3.co.cr', N'Comentario O.R.G SA 3', CAST(N'2020-11-07T03:30:00.000' AS DateTime), NULL, N'Maikel', NULL, 0, 0)
 SET IDENTITY_INSERT [dbo].[TMCCM_Entidad_Persona_Juridica] OFF
 GO
-
 
 --Tipo_Gasto
 INSERT INTO dbo.TMCCM_C_Gasto_Tipo_Gasto(TC_Nombre,TC_Descripcion)
