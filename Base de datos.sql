@@ -100,7 +100,7 @@ CREATE TABLE TMCCM_Evento(
 	TF_Fecha datetime,
 	TC_Informa varchar(50),
 	TC_Lugar varchar(50),
-	TC_Novedad varchar(200),
+	TC_Novedad varchar(500),
 	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TCCM_Evento PRImARY KEY(TN_ID_Evento),
 	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Evento Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso)
@@ -338,7 +338,7 @@ CREATE TABLE TMCCM_Entidad_Vehiculo(
 	TN_ID_Marca_Vehiculo int,
 	TN_ID_Color_Vehiculo int,
 	TC_Placa varchar(20),
-	TN_ID_Clase_Vehiculo varchar(50),
+	TN_ID_Clase_Vehiculo int,
 	TC_Estilo varchar(50),
 	TC_Comentario varchar(100),
 	TN_Anno int,
@@ -468,20 +468,4 @@ CREATE TABLE TMCCM_Entidad_Persona_Juridica(
 	CONSTRAINT FK_TMCCM_C_Persona_Juridica_Tipo_Organizacion_REL_TMCCM_Entidad_Persona_Juridica 
 	Foreign Key(TN_ID_Tipo_Organizacion) references TMCCM_C_Persona_Juridica_Tipo_Organizacion(TN_ID_Tipo_Organizacion)
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
