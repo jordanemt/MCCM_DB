@@ -415,8 +415,8 @@ CREATE TABLE TMCCM_Entidad_Persona(
 	TF_Fecha_Modificacion datetime,
 	TC_Creado_Por varchar(50),
 	TC_Modificado_Por varchar(50),
-	TTB_Verificado bit default 0,
-	B_Eliminado bit default 1,
+	TB_Verificado bit default 0,
+	TB_Eliminado bit default 1,
 	TC_Alias varchar(30),
 	TC_Comentario varchar(100),
 	CONSTRAINT PK_TCCM_Entidad_Persona PRImARY KEY(TN_ID_Persona),
@@ -468,4 +468,3 @@ CREATE TABLE TMCCM_Entidad_Persona_Juridica(
 	CONSTRAINT FK_TMCCM_C_Persona_Juridica_Tipo_Organizacion_REL_TMCCM_Entidad_Persona_Juridica 
 	Foreign Key(TN_ID_Tipo_Organizacion) references TMCCM_C_Persona_Juridica_Tipo_Organizacion(TN_ID_Tipo_Organizacion)
 )
-
