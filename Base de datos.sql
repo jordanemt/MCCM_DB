@@ -103,7 +103,7 @@ CREATE TABLE TMCCM_Evento(
 	TC_Novedad varchar(200),
 	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TCCM_Evento PRImARY KEY(TN_ID_Evento),
-	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Evento Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso),
+	CONSTRAINT FK_TMCCM_Caso_REL_TMCCM_Evento Foreign Key(TN_ID_Caso) references TMCCM_Caso(TN_ID_Caso)
 )
 
 CREATE TABLE TMCCM_Tarea(
@@ -301,7 +301,7 @@ ADD TB_Verificado bit default 0;
 CREATE TABLE TMCCM_C_Telefono_Empresa_Telefonica(
 	TN_ID_Proveedor int identity,
 	TC_Descripcion varchar(100),
-	TB_Eliminado bit default 1,
+	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TMCCM_C_Telefono_Empresa_Telefonica PRImARY KEY(TN_ID_Proveedor)
 )
 
@@ -470,7 +470,7 @@ ALTER TABLE TMCCM_Entidad_Persona
 ADD TC_Alias varchar(30);
 
 CREATE TABLE TMCCM_Entidad_Persona_Juridica(
-	TN_ID_Persona_Juridica int identity,
+	TN_ID_Persona_Juridica int identity primary key,
 	TN_ID_Caso int,
 	TC_ID_Cedula_Juridica varchar(50),
     TC_Nombre_Organizaciรณn varchar(100),
@@ -478,23 +478,22 @@ CREATE TABLE TMCCM_Entidad_Persona_Juridica(
 	TN_ID_Tipo_Organizacion int,
 	TC_Sitio_Web varchar(200),
 	TC_Comentario varchar(100),
-	TF_Fecha_Creacion date,
-	TF_Fecha_Modificacion date,
+	TF_Fecha_Creacion datetime,
+	TF_Fecha_Modificacion datetime,
 	TC_Creado_Por varchar(50),
 	TC_Modificado_Por varchar(50),
 	TB_Verificado bit,
-	TB_Eliminado bit default 1,
+	TB_Eliminado bit default 0,
+	CONSTRAINT PK_TCCM_C_Entidad_Persona_Juridica Primary key(TN_Id_Persona_Juridica),
 	CONSTRAINT FK_TMCCM_C_Persona_Juridica_Tipo_Organizacion_REL_TMCCM_Entidad_Persona_Juridica 
-	Foreign Key(TN_ID_Tipo_Organizacion) references TMCCM_C_Persona_Juridica_Tipo_Organizacion(TN_ID_Tipo_Organizacion),
-
-
+	Foreign Key(TN_ID_Tipo_Organizacion) references TMCCM_C_Persona_Juridica_Tipo_Organizacion(TN_ID_Tipo_Organizacion)
 )
 
 
 CREATE TABLE TMCCM_C_Persona_Juridica_Tipo_Organizacion(
 	TN_ID_Tipo_Organizacion int identity,
 	TC_Descripcion varchar(100),
-	TB_Eliminado bit default 1,
+	TB_Eliminado bit default 0,
 	CONSTRAINT PK_TMCCM_C_Persona_Juridica_Tipo_Organizaciรณn PRImARY KEY(TN_ID_Tipo_Organizacion)
 )
 
@@ -503,10 +502,6 @@ ALTER TABLE dbo.TMCCM_Entidad_Droga
 ALTER COLUMN TF_Fecha_Creacion datetime;
 
 ALTER TABLE dbo.TMCCM_Entidad_Droga
-ALTER COLUMN TF_Fecha_Modificacion datetime;
-Alter Table dbo.TMCCM_Entidad_Persona_Juridica add constraint PK_TCCM_C_Entidad_Persona_Juridica Primary key(TN_Id_Persona_Juridica)
-
-
 
 ALTER TABLE TMCCM_Entidad_Droga
 DROP COLUMN TF_Hora_Decomiso;
